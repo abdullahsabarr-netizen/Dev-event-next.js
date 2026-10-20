@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1eed988c-f53f-4001-80b4-0835b42adc07" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="LLMProjectSettings">
+    <option name="turned_on" value="false" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.349151912751931" />
+      <entry key="MS500" value="2.946821774017135" />
+      <entry key="S2" value="5.966293345099596" />
+      <entry key="S5" value="9.282511947355104" />
+      <entry key="S10" value="11.531246295377706" />
+      <entry key="S30" value="13.688140768599101" />
+      <entry key="S60" value="14.81013426874344" />
+      <entry key="M2" value="17.088451323890318" />
+      <entry key="M5" value="21.194974108605336" />
+      <entry key="M10" value="23.647098153260856" />
+      <entry key="M15" value="24.650974132147166" />
+      <entry key="M30" value="25.873415764294318" />
+      <entry key="H1" value="28.025800719347963" />
+      <entry key="H2" value="33.70433365435843" />
+      <entry key="H4" value="41.52978914274471" />
+      <entry key="D1" value="54.32965703982907" />
+      <entry key="W1" value="57.4469591183124" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="4.1701990930312996E-153" />
+      <entry key="S60" value="6.48047574373113E-77" />
+      <entry key="M2" value="8.552763932751117E-39" />
+      <entry key="M5" value="8.489545387613376E-16" />
+      <entry key="M10" value="4.988611884545242E-8" />
+      <entry key="M15" value="2.061138738767922E-5" />
+      <entry key="M30" value="0.008871423878935233" />
+      <entry key="H1" value="0.18723247147086758" />
+      <entry key="H2" value="0.8640668700846446" />
+      <entry key="H4" value="1.8583783750615712" />
+      <entry key="D1" value="3.52004903482353" />
+      <entry key="W1" value="3.927617883325554" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="1.2318814777171911" />
+      <entry key="MS500" value="2.8866982545090067" />
+      <entry key="S2" value="5.867082126237869" />
+      <entry key="S5" value="9.197293484169098" />
+      <entry key="S10" value="11.474273060936687" />
+      <entry key="S30" value="13.664834014673014" />
+      <entry key="S60" value="14.797423258745354" />
+      <entry key="M2" value="17.08099941225297" />
+      <entry key="M5" value="21.191175182052557" />
+      <entry key="M10" value="23.644949913728986" />
+      <entry key="M15" value="24.649492026730183" />
+      <entry key="M30" value="25.881428112520837" />
+      <entry key="H1" value="28.21231023576052" />
+      <entry key="H2" value="34.56766421206372" />
+      <entry key="H4" value="43.387558120173075" />
+      <entry key="D1" value="57.84954074207277" />
+      <entry key="W1" value="61.37455118491538" />
+    </decayedShown>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3Kh0VGG4mGwNPqxj4AD1QxGehya" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;KEY_CHAT_IN_TOOLWINDOW&quot;: &quot;false&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.jshint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.jshint&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.Next.js: server-side.executor&quot;: &quot;Run&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\PMYLS\\WebstormProjects\\project.js\\node_modules\\typescript\\lib&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\PMYLS\WebstormProjects\project.js" />
+      <recent name="C:\Users\PMYLS\WebstormProjects\project.js\app" />
+      <recent name="C:\Users\PMYLS\WebstormProjects\project.js\app\(dashboard)" />
+      <recent name="C:\Users\PMYLS\WebstormProjects\project.js\app\(root)" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.Next.js: server-side">
+    <configuration name="Next.js: debug client-side" type="JavascriptDebugType" uri="http://localhost:3000/">
+      <method v="2" />
+    </configuration>
+    <configuration name="Next.js: server-side" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-WS-262.10968.77" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1eed988c-f53f-4001-80b4-0835b42adc07" name="Changes" comment="" />
+      <created>1791994514922</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1791994514922</updated>
+      <workItem from="1791994516031" duration="1165000" />
+      <workItem from="1792039930061" duration="19749000" />
+      <workItem from="1792219982708" duration="83000" />
+      <workItem from="1792220106294" duration="17368000" />
+      <workItem from="1792309318015" duration="20831000" />
+      <workItem from="1792422668605" duration="1219000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
