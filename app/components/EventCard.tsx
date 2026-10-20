@@ -1,6 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Calendar, Clock } from "lucide-react";
+import posthog from "posthog-js";
+import { posthogLogs } from "@/app/lib/posthog-logs";
 
 interface Props {
     title: string;
@@ -13,7 +17,16 @@ interface Props {
 
 const EventCard = ({ title, image, slug, location, date, time }: Props) => {
     return (
-        <Link href={`/events/${slug}`} id="event-card">
+        <Link
+            href={`/events/${slug}`}
+            id="event-card"
+            onClick={() => {
+                if (process.env.NEXT_PUBLIC_POSTHOG_KEY && process.env.NEXT_PUBLIC_POSTHOG_HOST) {
+                    posthog.capture("event_details_opened", { event_slug: slug });
+                    posthogLogs.eventDetailsOpened(slug);
+                }
+            }}
+        >
             {/* Event Poster Image */}
             <Image
                 src={image}
