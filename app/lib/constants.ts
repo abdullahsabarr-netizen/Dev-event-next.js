@@ -1,16 +1,16 @@
 export type EventItem = {
     title: string;
-    description: string;
     image: string;
     slug: string;
     location: string;
     date: string;
     time: string;
-    audience: string;
-    mode: string;
-    agenda: { time: string; activity: string }[];
-    organizer: string;
-    tags: string[];
+    description?: string;
+    audience?: string;
+    mode?: string;
+    agenda?: { time: string; activity: string }[];
+    organizer?: string;
+    tags?: string[];
 };
 
 // Curated list of upcoming/popular developer events.
@@ -58,7 +58,7 @@ export const events: EventItem[] = [
     {
         image: "/images/event7.png",
         title: "Next Js Framework America 2026",
-        slug: "nextjs-framework-america-2026", // Slug unique kar diya gaya hai
+        slug: "nextjs-framework-america-2026",
         location: "UK, Pakistan",
         date: "2026-08-22",
         time: "10:00 AM",

@@ -109,28 +109,6 @@ const EventSchema = new Schema<IEvent>(
     }
 );
 
-// Pre-save hook for slug generation and data normalization
-EventSchema.pre('save', function (next) {
-    const event = this as IEvent;
-
-    // Generate slug only if title changed or document is new
-    if (event.isModified('title') || event.isNew) {
-        event.slug = generateSlug(event.title);
-    }
-
-    // Normalize date to ISO format if it's not already
-    if (event.isModified('date')) {
-        event.date = normalizeDate(event.date);
-    }
-
-    // Normalize time format (HH:MM)
-    if (event.isModified('time')) {
-        event.time = normalizeTime(event.time);
-    }
-
-    next();
-});
-
 // Helper function to generate URL-friendly slug
 function generateSlug(title: string): string {
     return title
@@ -170,6 +148,27 @@ function normalizeTime(timeString: string): string {
 
     return `${hours.toString().padStart(2, '0')}:${minutes}`;
 }
+
+// Pre-save hook for slug generation and data normalization
+// (next parameter hata diya gaya hai taake TS2349 SaveOptions error khatam ho jaye)
+EventSchema.pre('save', function () {
+    const event = this as IEvent;
+
+    // Generate slug only if title changed or document is new
+    if (event.isModified('title') || event.isNew) {
+        event.slug = generateSlug(event.title);
+    }
+
+    // Normalize date to ISO format if it's not already
+    if (event.isModified('date')) {
+        event.date = normalizeDate(event.date);
+    }
+
+    // Normalize time format (HH:MM)
+    if (event.isModified('time')) {
+        event.time = normalizeTime(event.time);
+    }
+});
 
 // Create unique index on slug for better performance
 EventSchema.index({ slug: 1 }, { unique: true });
