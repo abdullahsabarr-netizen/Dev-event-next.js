@@ -1,15 +1,19 @@
 export type EventItem = {
-    image: string;
     title: string;
+    description: string;
+    image: string;
     slug: string;
     location: string;
-    date: string; // e.g., "2025-11-07"
-    time: string; // e.g., "09:00 AM"
+    date: string;
+    time: string;
+    audience: string;
+    mode: string;
+    agenda: { time: string; activity: string }[];
+    organizer: string;
+    tags: string[];
 };
 
 // Curated list of upcoming/popular developer events.
-// Image assets live under public/images and can be used directly with
-// via paths like "/images/event1.png".
 export const events: EventItem[] = [
     {
         image: "/images/event1.png",
@@ -23,7 +27,7 @@ export const events: EventItem[] = [
         image: "/images/event2.png",
         title: "KubeCon + CloudNativeCon Europe 2026",
         slug: "kubecon-cloudnativecon-eu-2026",
-        location: "Europe", // Agar location / date add karni ho toh yahan kar dein
+        location: "Europe",
         date: "2026-03-23",
         time: "09:00 AM",
     },
@@ -54,7 +58,7 @@ export const events: EventItem[] = [
     {
         image: "/images/event7.png",
         title: "Next Js Framework America 2026",
-        slug: "oss-na-2026",
+        slug: "nextjs-framework-america-2026", // Slug unique kar diya gaya hai
         location: "UK, Pakistan",
         date: "2026-08-22",
         time: "10:00 AM",
