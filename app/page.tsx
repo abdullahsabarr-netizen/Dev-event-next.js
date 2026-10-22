@@ -1,8 +1,14 @@
 import ExploreBtn from "@/app/components/ExploreBtn";
 import EventCard from "@/app/components/EventCard";
-import { events } from "@/app/lib/constants";
 
-const Page = () => {
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+
+    const Page = async () => {
+        // Fresh data fetch karne ke liye cache disable kar sakte hain
+        const response = await fetch(`${BASE_URL}/api/events`, { cache: 'no-store' });
+        const { events } = await response.json();
+
     return (
         <div className="flex flex-col items-center w-full">
             {/* Hero Section */}
@@ -23,7 +29,7 @@ const Page = () => {
                 <div className="space-y-8">
                     <h3 className="text-2xl font-bold text-white">Featured Events</h3>
                     <ul className="events list-none p-0 m-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {events.map((event) => (
+                        {events && events.length > 0 && events.map((event: IEvent) => (
                             <li key={event.slug} className="list-none">
                                 <EventCard {...event} />
                             </li>
