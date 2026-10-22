@@ -7,23 +7,27 @@ import posthog from "posthog-js";
 import { posthogLogs } from "@/app/lib/posthog-logs";
 
 interface Props {
+    _id?: string;
     title: string;
     image: string;
-    slug: string;
+    slug?: string;
     location: string;
     date: string;
     time: string;
 }
 
-const EventCard = ({ title, image, slug, location, date, time }: Props) => {
+const EventCard = ({ _id, title, image, slug, location, date, time }: Props) => {
+    // Agar slug mojood na ho toh _id ya fallback use ho jaye ga taake 404 na aaye
+    const eventIdentifier = slug || _id;
+
     return (
         <Link
-            href={`/events/${slug}`}
+            href={`/events/${eventIdentifier}`}
             id="event-card"
             onClick={() => {
                 if (process.env.NEXT_PUBLIC_POSTHOG_KEY && process.env.NEXT_PUBLIC_POSTHOG_HOST) {
-                    posthog.capture("event_details_opened", { event_slug: slug });
-                    posthogLogs.eventDetailsOpened(slug);
+                    posthog.capture("event_details_opened", { event_slug: eventIdentifier });
+                    posthogLogs.eventDetailsOpened(eventIdentifier || "");
                 }
             }}
         >
