@@ -1,6 +1,8 @@
-import { events } from "@/app/lib/constants";
-import Image from "next/image";
+import Event from "@/database/event.model";
+import connectDB from "@/app/lib/mongodb";
 import { notFound } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
 import { Calendar, Clock, MapPin } from "lucide-react";
 
 interface Props {
@@ -11,11 +13,16 @@ interface Props {
 
 export default async function EventDetailsPage({ params }: Props) {
     const { slug } = await params;
-    const event = events.find((e) => e.slug === slug);
+
+    await connectDB();
+    const event = await Event.findOne({ slug });
 
     if (!event) {
         notFound();
     }
+
+    // Is event ke ilawa baqi similar events lana
+    const similarEvents = await Event.find({ _id: { $ne: event._id } }).limit(3);
 
     return (
         <div className="max-w-7xl mx-auto py-12 px-4 text-white">
@@ -38,9 +45,7 @@ export default async function EventDetailsPage({ params }: Props) {
                     <div className="space-y-4">
                         <h2 className="text-2xl font-bold text-white">Overview</h2>
                         <p className="text-gray-300 leading-relaxed">
-                            {event.title} brings together developers, innovators, and industry leaders
-                            from around the world. This flagship event dives deep into the future of software,
-                            open source, and AI-driven development.
+                            {event.overview || event.description || `${event.title} brings together developers, innovators, and industry leaders from around the world.`}
                         </p>
                     </div>
 
@@ -54,11 +59,11 @@ export default async function EventDetailsPage({ params }: Props) {
                             </div>
                             <div className="flex items-center gap-3">
                                 <Clock className="text-gray-400" size={20} />
-                                <p><strong>Time:</strong> {event.time}</p>
+                                <p><strong>Time:</strong> {event.time || "10:00 AM"}</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <MapPin className="text-gray-400" size={20} />
-                                <p><strong>Venue:</strong> {event.location}</p>
+                                <p><strong>Venue:</strong> {event.location || event.venue}</p>
                             </div>
                         </div>
                     </div>
@@ -67,12 +72,19 @@ export default async function EventDetailsPage({ params }: Props) {
                     <div className="space-y-4">
                         <h2 className="text-2xl font-bold text-white">Agenda</h2>
                         <ul className="space-y-3 text-gray-300 list-disc list-inside">
-                            <li><strong>09:30 AM - 10:30 AM</strong> | Opening Keynote: The Future of AI & Open Source[cite: 36]</li>
-                            <li><strong>10:45 AM - 12:00 PM</strong> | Breakout Sessions (Security, DevOps, Cloud, AI)[cite: 36]</li>
-                            <li><strong>12:00 PM - 01:00 PM</strong> | Lunch & Networking[cite: 36]</li>
-                            <li><strong>01:00 PM - 02:15 PM</strong> | Panel Discussion: Scaling Open Source Communities[cite: 36]</li>
-                            <li><strong>02:30 PM - 04:00 PM</strong> | Expert Workshops & Demos[cite: 36]</li>
-                            <li><strong>04:15 PM - 05:00 PM</strong> | Closing Fireside Chat[cite: 36]</li>
+                            {event.agenda && event.agenda.length > 0 ? (
+                                event.agenda.map((item: string, index: number) => (
+                                    <li key={index}>{item}</li>
+                                ))
+                            ) : (
+                                <>
+                                    <li>08:30 AM - 09:30 AM | Keynote: AI-Driven Cloud Infrastructure</li>
+                                    <li>09:45 AM - 11:00 AM | Deep Dives: Kubernetes, Data Analytics</li>
+                                    <li>11:15 AM - 12:30 PM | Product Demos & Networking</li>
+                                    <li>12:30 PM - 01:30 PM | Lunch & Break</li>
+                                    <li>01:30 PM - 03:00 PM | Workshops & Live Coding</li>
+                                </>
+                            )}
                         </ul>
                     </div>
 
@@ -80,14 +92,20 @@ export default async function EventDetailsPage({ params }: Props) {
                     <div className="space-y-4">
                         <h2 className="text-2xl font-bold text-white">About the Organizer</h2>
                         <p className="text-gray-300 leading-relaxed">
-                            GitHub is the world's leading platform for developers to build, share, and maintain code.
-                            From open source to enterprise, GitHub empowers millions of developers and organizations
-                            to innovate faster and more securely[cite: 36].
+                            {event.organizer || "Google Cloud organizes Cloud Next to connect global businesses, developers, and innovators with the latest technologies and best practices in cloud computing."}
                         </p>
-                        <p className="text-gray-300 leading-relaxed">
-                            {event.title} is its annual developer conference, uniting the global dev community to
-                            share knowledge, tools, and inspiration that shape the future of software[cite: 36].
-                        </p>
+
+                        {/* Tags */}
+                        <div className="flex flex-wrap gap-2 pt-3">
+                            {(event.tags && event.tags.length > 0 ? event.tags : ["Cloud", "DevOps", "Kubernetes", "AI"]).map((tag: string) => (
+                                <span
+                                    key={tag}
+                                    className="px-4 py-1.5 bg-[#131926] text-gray-300 rounded-lg text-sm border border-gray-800 font-medium"
+                                >
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
                     </div>
                 </div>
 
@@ -113,6 +131,38 @@ export default async function EventDetailsPage({ params }: Props) {
                             Submit
                         </button>
                     </form>
+                </div>
+            </div>
+
+            {/* Similar Events Section */}
+            <div className="mt-16 space-y-6">
+                <h2 className="text-3xl font-bold text-white">Similar Events</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {similarEvents && similarEvents.length > 0 ? (
+                        similarEvents.map((simEvent) => (
+                            <Link
+                                href={`/events/${simEvent.slug}`}
+                                key={simEvent._id.toString()}
+                                className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden hover:border-gray-700 transition block p-4 space-y-3"
+                            >
+                                <div className="relative w-full h-44">
+                                    <Image
+                                        src={simEvent.image}
+                                        alt={simEvent.title}
+                                        fill
+                                        className="rounded-lg object-cover"
+                                    />
+                                </div>
+                                <h3 className="text-lg font-bold text-white hover:text-teal-400 transition-colors">
+                                    {simEvent.title}
+                                </h3>
+                                <p className="text-gray-400 text-sm">{simEvent.location}</p>
+                                <p className="text-teal-400 text-sm font-medium">{simEvent.date}</p>
+                            </Link>
+                        ))
+                    ) : (
+                        <p className="text-gray-400">No similar events found.</p>
+                    )}
                 </div>
             </div>
         </div>
