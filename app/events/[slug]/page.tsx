@@ -5,9 +5,7 @@ import { connection } from "next/server";
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, Clock, MapPin } from "lucide-react";
-import BookEvent from "@/app/components/BookEvent"; // 👈 1. BookEvent import kiya
-
-export const instant = false;
+import BookEvent from "@/app/components/BookEvent";
 
 interface Props {
     params: Promise<{
@@ -108,7 +106,7 @@ export default async function EventDetailsPage({ params }: Props) {
                     </div>
                 </div>
 
-                {/* Right Side: 👈 2. Yahan BookEvent component lagaya gaya hai */}
+                {/* Right Side */}
                 <div>
                     <BookEvent eventId={event._id.toString()} slug={event.slug} />
                 </div>

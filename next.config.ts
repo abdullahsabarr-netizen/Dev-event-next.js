@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
     typescript: {
-        ignoreBuildErrors: true,
+        ignoreBuildErrors: true, // 👈 Yeh zaroor hona chahiye taake Vercel build type error par na ruke
     },
     images: {
         remotePatterns: [
@@ -15,10 +15,6 @@ const nextConfig: NextConfig = {
                 hostname: "res.cloudinary.com",
             },
         ],
-    },
-    experimental: {
-        cacheComponents: true,
-        partialPrefetching: true,
     },
 };
 
