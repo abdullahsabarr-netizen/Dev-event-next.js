@@ -25,8 +25,9 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className="dark">
+        <html lang="en" className="dark" suppressHydrationWarning>
         <body
+            suppressHydrationWarning
             className={`${schibstedGrotesk.variable} ${martianMono.variable} antialiased bg-[#030708] text-white min-h-screen relative overflow-x-hidden`}
         >
         <Navbar />

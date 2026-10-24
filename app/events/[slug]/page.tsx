@@ -1,9 +1,13 @@
 import Event from "@/database/event.model";
 import connectDB from "@/app/lib/mongodb";
 import { notFound } from "next/navigation";
+import { connection } from "next/server";
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, Clock, MapPin } from "lucide-react";
+import BookEvent from "@/app/components/BookEvent"; // 👈 1. BookEvent import kiya
+
+export const instant = false;
 
 interface Props {
     params: Promise<{
@@ -12,6 +16,8 @@ interface Props {
 }
 
 export default async function EventDetailsPage({ params }: Props) {
+    await connection();
+
     const { slug } = await params;
 
     await connectDB();
@@ -21,16 +27,14 @@ export default async function EventDetailsPage({ params }: Props) {
         notFound();
     }
 
-    // Is event ke ilawa baqi similar events lana
     const similarEvents = await Event.find({ _id: { $ne: event._id } }).limit(3);
 
     return (
         <div className="max-w-7xl mx-auto py-12 px-4 text-white">
-            {/* Event Title */}
             <h1 className="text-4xl md:text-5xl font-bold mb-8">{event.title}</h1>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                {/* Left Side: Image, Overview, Event Details, Agenda & About Organizer */}
+                {/* Left Side */}
                 <div className="lg:col-span-2 space-y-8">
                     <div className="relative w-full h-[400px]">
                         <Image
@@ -41,15 +45,13 @@ export default async function EventDetailsPage({ params }: Props) {
                         />
                     </div>
 
-                    {/* Overview Section */}
                     <div className="space-y-4">
                         <h2 className="text-2xl font-bold text-white">Overview</h2>
                         <p className="text-gray-300 leading-relaxed">
-                            {event.overview || event.description || `${event.title} brings together developers, innovators, and industry leaders from around the world.`}
+                            {event.overview || event.description || `${event.title} brings together developers, innovators, and industry leaders.`}
                         </p>
                     </div>
 
-                    {/* Event Details Section */}
                     <div className="space-y-4">
                         <h2 className="text-2xl font-bold text-white">Event Details</h2>
                         <div className="space-y-3 text-gray-300">
@@ -68,7 +70,6 @@ export default async function EventDetailsPage({ params }: Props) {
                         </div>
                     </div>
 
-                    {/* Agenda Section */}
                     <div className="space-y-4">
                         <h2 className="text-2xl font-bold text-white">Agenda</h2>
                         <ul className="space-y-3 text-gray-300 list-disc list-inside">
@@ -88,14 +89,12 @@ export default async function EventDetailsPage({ params }: Props) {
                         </ul>
                     </div>
 
-                    {/* About the Organizer Section */}
                     <div className="space-y-4">
                         <h2 className="text-2xl font-bold text-white">About the Organizer</h2>
                         <p className="text-gray-300 leading-relaxed">
-                            {event.organizer || "Google Cloud organizes Cloud Next to connect global businesses, developers, and innovators with the latest technologies and best practices in cloud computing."}
+                            {event.organizer || "Google Cloud organizes Cloud Next to connect global businesses, developers, and innovators with the latest technologies."}
                         </p>
 
-                        {/* Tags */}
                         <div className="flex flex-wrap gap-2 pt-3">
                             {(event.tags && event.tags.length > 0 ? event.tags : ["Cloud", "DevOps", "Kubernetes", "AI"]).map((tag: string) => (
                                 <span
@@ -109,32 +108,13 @@ export default async function EventDetailsPage({ params }: Props) {
                     </div>
                 </div>
 
-                {/* Right Side: Book Your Spot Form */}
-                <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 h-fit space-y-6">
-                    <h3 className="text-2xl font-bold text-white">Book Your Spot</h3>
-                    <form className="space-y-4">
-                        <div>
-                            <label className="block text-sm font-medium text-gray-400 mb-2">
-                                Email Address
-                            </label>
-                            <input
-                                type="email"
-                                placeholder="Enter your email"
-                                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-teal-400"
-                                required
-                            />
-                        </div>
-                        <button
-                            type="submit"
-                            className="w-full py-3 bg-teal-400 hover:bg-teal-500 text-gray-950 font-semibold rounded-lg transition-colors"
-                        >
-                            Submit
-                        </button>
-                    </form>
+                {/* Right Side: 👈 2. Yahan BookEvent component lagaya gaya hai */}
+                <div>
+                    <BookEvent eventId={event._id.toString()} slug={event.slug} />
                 </div>
             </div>
 
-            {/* Similar Events Section */}
+            {/* Similar Events */}
             <div className="mt-16 space-y-6">
                 <h2 className="text-3xl font-bold text-white">Similar Events</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
