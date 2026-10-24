@@ -1,15 +1,10 @@
 import ExploreBtn from "@/app/components/ExploreBtn";
 import EventCard from "@/app/components/EventCard";
-import { cacheLife } from "next/cache";
-import { IEvent } from "@/database/event.model";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
 const Page = async () => {
-    'use cache';
-    cacheLife('hours');
-
-    const response = await fetch(`${BASE_URL}/api/events`);
+    const response = await fetch(`${BASE_URL}/api/events`, { cache: 'no-store' });
     const { events } = await response.json();
 
     return (
@@ -29,12 +24,12 @@ const Page = async () => {
 
             {/* Featured Events Section */}
             <section id="events" className="w-full max-w-7xl mx-auto mt-10 px-4">
-                <div className="space-y-7">
+                <div className="space-y-8">
                     <h3 className="text-2xl font-bold text-white">Featured Events</h3>
                     <ul className="events list-none p-0 m-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {events && events.length > 0 && events.map((event: IEvent) => (
-                            <li key={event.slug} className="list-none">
-                                <EventCard {...event} />
+                        {events && events.length > 0 && events.map((event: any) => (
+                            <li key={event.slug || event._id} className="list-none">
+                                <EventCard {...(event as any)} />
                             </li>
                         ))}
                     </ul>
