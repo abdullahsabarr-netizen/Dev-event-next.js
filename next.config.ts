@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
     typescript: {
-        ignoreBuildErrors: true, // 👈 Yeh zaroor hona chahiye taake Vercel build type error par na ruke
+        ignoreBuildErrors: true, // 👈 Yeh line zaroori hai taake build type check par na ruke
     },
     images: {
         remotePatterns: [
