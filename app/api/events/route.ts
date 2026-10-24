@@ -14,7 +14,8 @@ cloudinary.config({
 export async function GET() {
     try {
         await connectDB();
-        const events = await Event.find().sort({ createdAt: -1 });
+        // Yahan .lean() add kar diya gaya hai taake plain objects return hon
+        const events = await Event.find().sort({ createdAt: -1 }).lean();
         return NextResponse.json({ message: 'Events fetched successfully', events }, { status: 200 });
     } catch (e) {
         console.error(e);
@@ -72,7 +73,7 @@ export async function POST(req: NextRequest) {
         // Cloudinary ka secure URL assign karein
         event.image = (uploadResult as { secure_url: string }).secure_url;
 
-        // Screenshot ke mutabiq Event create karein[cite: 32]
+        // Event create karein
         const createdEvent = await Event.create({
             ...event,
             tags: tags,

@@ -1,11 +1,20 @@
 import ExploreBtn from "@/app/components/ExploreBtn";
 import EventCard from "@/app/components/EventCard";
+import connectToDB from "@/database/mongoose";
+import Event from "@/database/event.model";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+export const dynamic = "force-dynamic";
 
 const Page = async () => {
-    const response = await fetch(`${BASE_URL}/api/events`, { cache: 'no-store' });
-    const { events } = await response.json();
+    // Direct database connection & query (No fetch API needed in Server Components)
+    await connectToDB();
+    const rawEvents = await Event.find({}).sort({ createdAt: -1 }).lean();
+
+    // Convert _id ObjectId to string cleanly
+    const events = rawEvents.map((event: any) => ({
+        ...event,
+        _id: event._id.toString(),
+    }));
 
     return (
         <div className="flex flex-col items-center w-full">
@@ -27,9 +36,9 @@ const Page = async () => {
                 <div className="space-y-8">
                     <h3 className="text-2xl font-bold text-white">Featured Events</h3>
                     <ul className="events list-none p-0 m-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {events && events.length > 0 && events.map((event: any) => (
+                        {events.length > 0 && events.map((event: any) => (
                             <li key={event.slug || event._id} className="list-none">
-                                <EventCard {...(event as any)} />
+                                <EventCard {...event} />
                             </li>
                         ))}
                     </ul>
